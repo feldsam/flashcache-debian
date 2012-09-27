@@ -1,0 +1,41 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          flashcache
+# Required-Start:    lvm2
+# Required-Stop:
+# Should-Start:
+# Default-Start:     S
+# Default-Stop:
+# X-Start-Before:    checkfs mountall
+# Short-Description: Scan for flashcache writeback partitions.
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/bin
+
+do_start () {
+	PARTITIONS=`cat /proc/partitions | awk '{ print $NF; }' | grep -v name`
+	for P in $PARTITIONS; do
+	    if flashcache_load "/dev/$P"  2> /dev/null; then
+	        echo "Loaded flashcache device from /dev/$P"
+	    fi
+	done
+}
+
+case "$1" in
+  start|"")
+	do_start
+	;;
+  restart|reload|force-reload)
+	echo "Error: argument '$1' not supported" >&2
+	exit 3
+	;;
+  stop)
+	# No-op
+	;;
+  *)
+	echo "Usage: flashcache [start|stop]" >&2
+	exit 3
+	;;
+esac
+
+:
