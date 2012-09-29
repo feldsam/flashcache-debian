@@ -28,10 +28,6 @@ Check
 	dmesg | tail
 	.............................
 	[ 5806.891504] flashcache: flashcache-1.0 initialized
-
-Autoload module on boot time
-	
-	echo flashcache >> /etc/modules
 	
 Create flashcache writeback device (I use lvm)
 	
