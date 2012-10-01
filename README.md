@@ -42,8 +42,6 @@ Install init script
 	cp flashcache-debian/flashcache /etc/init.d/
 	chmod +x /etc/init.d/flashcache
 	update-rc.d flashcache defaults
-	# if you have /usr on separate partition you have to copy awk bin to root partition
-	cp /usr/bin/awk /bin/
 	
 Reboot
 	

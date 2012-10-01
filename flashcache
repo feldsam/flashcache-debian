@@ -13,8 +13,8 @@
 PATH=/sbin:/bin:/usr/bin
 
 do_start () {
-	PARTITIONS=`cat /proc/partitions | awk '{ print $NF; }' | grep -v name`
-	for P in $PARTITIONS; do
+	cat /proc/partitions | grep -v 'name\|^$' | while read a b c P
+	do
 	    if flashcache_load "/dev/$P"  2> /dev/null; then
 	        echo "Loaded flashcache device from /dev/$P"
 	    fi
